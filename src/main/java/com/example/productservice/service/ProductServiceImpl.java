@@ -1,8 +1,11 @@
 package com.example.productservice.service;
 
+import com.example.productservice.exception.ProductNotFoundException;
 import com.example.productservice.repository.ProductRepository;
 import com.example.productservice.dto.ProductResponse;
 import com.example.productservice.dto.ProductRequest;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import com.example.productservice.entity.Product;
 import java.util.List;
@@ -10,6 +13,7 @@ import java.util.List;
 @Service
 public class ProductServiceImpl implements ProductService {
 
+    Logger logger = LoggerFactory.getLogger(ProductServiceImpl.class);
     private final ProductRepository productRepository;
 
     public ProductServiceImpl(ProductRepository productRepository) {
@@ -29,6 +33,12 @@ public class ProductServiceImpl implements ProductService {
 
         Product savedProduct = productRepository.save(product);
 
+//        logger.error("Product Created"); //need to enable it manually
+//        logger.warn("Product Created"); //need to enable it manually
+        logger.info("Product Created");
+//        logger.debug("Product Created");
+//        logger.trace("Product Created");
+
         return mapToResponse(savedProduct);
     }
 
@@ -46,7 +56,7 @@ public class ProductServiceImpl implements ProductService {
 
         Product product = productRepository.findById(id)
                 .orElseThrow(() ->
-                        new RuntimeException("Product not found"));
+                        new ProductNotFoundException("Product not found for ID: "+id));
 
         return mapToResponse(product);
     }

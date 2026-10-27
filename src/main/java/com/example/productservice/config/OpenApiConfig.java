@@ -9,12 +9,12 @@ import java.util.List;
 
 @Configuration
 public class OpenApiConfig {
-
-    @Bean
-    public OpenAPI customOpenAPI() {
-        return new OpenAPI()
-                .servers(List.of(
-                        new Server().url("/")
-                ));
-    }
+// to customize OpenAPI documentation, including the server URLs used by Swagger UI when executing API requests.
+//    @Bean
+//    public OpenAPI customOpenAPI() {
+//        return new OpenAPI()
+//                .servers(List.of(
+//                        new Server().url("/")
+//                ));
+//    }
 }
